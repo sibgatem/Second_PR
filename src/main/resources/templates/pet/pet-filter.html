@@ -5,9 +5,10 @@
     <title>Фильтрация питомцев</title>
 </head>
 <body>
-<form method="post" th:action="${'/pet/filter/result'}">
-    <input type="text" name="name">
-    <button type="submit">Найти</button>
+<form >
+    <input  type="text" name="name">
+    <button formmethod="post" th:formaction="${'/pet/filter/result'}" type="submit">Найти</button>
+    <button formmethod="post" th:formaction="${'/pet/filter/resultcontains'}" type="submit">Найти</button>
     <div th:each="el : ${result}">
         <h3 th:text="${el.name}"></h3>
         <p th:text="${el.breed}"></p>

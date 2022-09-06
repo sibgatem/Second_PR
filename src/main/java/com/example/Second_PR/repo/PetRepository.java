@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface PetRepository extends CrudRepository <Pet, Long> {
     List<Pet> findByNameContains (String name);
-
+    List<Pet> findByName (String name);
 }

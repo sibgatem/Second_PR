@@ -48,10 +48,18 @@ public class PetController {
         return "pet/pet-filter";
     }
 
+    @PostMapping("/pet/filter/resultcontains")
+    public String petResultContains(@RequestParam String name, Model model)
+    {
+        List<Pet> result = petRepository.findByNameContains(name);
+        model.addAttribute("result", result);
+        return "pet/pet-filter";
+    }
+
     @PostMapping("/pet/filter/result")
     public String petResult(@RequestParam String name, Model model)
     {
-        List<Pet> result = petRepository.findByNameContains(name);
+        List<Pet> result = petRepository.findByName(name);
         model.addAttribute("result", result);
         return "pet/pet-filter";
     }

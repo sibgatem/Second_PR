@@ -5,9 +5,10 @@
     <title>Фильтрация владельцев</title>
 </head>
 <body>
-<form method="post" th:action="${'/owner/filter/result'}">
+<form  >
     <input type="text" name="name">
-    <button type="submit">Найти</button>
+    <button th:formaction="${'/owner/filter/result'}" formmethod="post" type="submit">Найти</button>
+    <button th:formaction="${'/owner/filter/resultcontains'}" formmethod="post" type="submit">Найти</button>
     <div th:each="el : ${result}">
         <h3 th:text="${el.name}"></h3>
         <p th:text="${el.post}"></p>

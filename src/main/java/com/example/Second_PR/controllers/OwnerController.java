@@ -50,6 +50,14 @@ public class OwnerController {
     @PostMapping("/owner/filter/result")
     public String ownerResult(@RequestParam String name, Model model)
     {
+        List<Owner> result = ownerRepository.findByName(name);
+        model.addAttribute("result", result);
+        return "owner/owner-filter";
+    }
+
+    @PostMapping("/owner/filter/resultcontains")
+    public String ownerResultContains(@RequestParam String name, Model model)
+    {
         List<Owner> result = ownerRepository.findByNameContains(name);
         model.addAttribute("result", result);
         return "owner/owner-filter";
