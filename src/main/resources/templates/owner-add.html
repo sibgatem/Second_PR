@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление владельцев</title>
+</head>
+<body>
+<form th:action="${'/owner/add'}" method="post">
+    <input type="text" name="name" placeholder="Введите имя" ><br>
+    <input type="text" name="post" placeholder="Введите должность"><br>
+    <input type="number" name="age" placeholder="Введите возраст"><br>
+    <input type="text" name="sex" maxlength="1" placeholder="Введите пол"><br>
+    <input type="text" name="salary"  placeholder="Введите заработную плату"><br>
+    <br>
+    <button type="submit">Добавить</button>
+</form>
+</body>
+</html>

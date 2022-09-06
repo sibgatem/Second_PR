@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Все владельцы</title>
+</head>
+<body>
+<a href="/owner/filter">Фильтрация</a>
+<a href="/owner/add">Добавить владельца</a>
+<div th:each="el : ${owners}">
+    <h3 th:text="${el.name}"></h3>
+    <p th:text="${el.post}"></p>
+    <p th:text="${el.age}"></p>
+    <p th:text="${el.sex}"></p>
+    <p th:text="${el.salary}"></p>
+</div>
+</body>
+</html>

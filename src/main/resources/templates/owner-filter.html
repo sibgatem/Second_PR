@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Фильтрация владельцев</title>
+</head>
+<body>
+<form method="post" th:action="${'/owner/filter/result'}">
+    <input type="text" name="name">
+    <button type="submit">Найти</button>
+    <div th:each="el : ${result}">
+        <h3 th:text="${el.name}"></h3>
+        <p th:text="${el.post}"></p>
+        <p th:text="${el.age}"></p>
+        <p th:text="${el.sex}"></p>
+        <p th:text="${el.salary}"></p>
+    </div>
+</form>
+</body>
+</html>
