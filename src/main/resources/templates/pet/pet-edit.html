@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Редактирование данных питомца</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="/css/input.css" rel="stylesheet">
+</head>
+<body>
+<div class="Input" th:each="el : ${pet}">
+    <form method="post">
+        <input class="Input-text" th:value="${el.getName()}" type="text" name="name" placeholder="Введите имя" ><br>
+        <input class="Input-text" th:value="${el.getBreed()}" type="text" name="breed" placeholder="Введите породу"><br>
+        <input class="Input-text" th:value="${el.getAge()}" type="number" name="age" placeholder="Введите возраст"><br>
+        <input class="Input-text" th:value="${el.getSex()}" type="text" name="sex" maxlength="1" placeholder="Введите пол"><br>
+        <label>Болен ли питомец</label><br>
+        <div class="custom-control custom-radio">
+            <input type="radio" id="customRadio1" name="sick" value="1" class="custom-control-input">
+            <label class="custom-control-label" for="customRadio1">Да</label>
+        </div>
+        <div class="custom-control custom-radio">
+            <input type="radio" id="customRadio2" name="sick" value="0" class="custom-control-input">
+            <label class="custom-control-label" for="customRadio2">Нет</label>
+        </div>
+        <br>
+        <button class="Input-text" type="submit">Сохранить изменения</button>
+    </form>
+</div>
+</body>
+</html>

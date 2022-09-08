@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link href="/css/link.css" rel="stylesheet">
+
+</head>
+<body>
+<div th:insert="blocks/header"/>
+<div id="Input" th:each="el : ${owner}">
+  <div class="input">
+    <h3 class="Title" th:text="${el.getName()}"></h3>
+    <p class="Title" th:text="${el.getPost()}"></p>
+    <p class="Title" th:text="${el.getAge()}"></p>
+    <p class="Title" th:text="${el.getSex()}"></p>
+    <p class="Title" th:text="${el.getSalary()}"></p>  </div>
+  <div class="social">
+    <a th:href="'/owner/' + ${el.getId()} + '/edit'">Редактировать</a>
+  </div>
+  <form th:action="'/owner/' + ${el.getId()} + '/remove'" method="post">
+    <button type="submit" class="btn btn-del">Удалить</button>
+  </form>
+</div>
+</body>

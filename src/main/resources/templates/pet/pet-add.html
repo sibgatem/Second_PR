@@ -2,25 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link href="/css/input.css" rel="stylesheet">
     <title>Добавление питомца</title>
 </head>
 <body>
-<form th:action="${'/pet/add'}" method="post">
-    <input type="text" name="name" placeholder="Введите имя питомца" width=""><br>
-    <input type="text" name="breed" placeholder="Введите породу питомца"><br>
-    <input type="number" name="age" placeholder="Введите возраст питомца"><br>
-    <input type="text" name="sex" maxlength="1" placeholder="Введите пол питомца"><br>
-    <label>Болен ли питомец</label><br>
-    <div class="custom-control custom-radio">
-        <input type="radio" id="customRadio1" name="sick" value="1" class="custom-control-input">
-        <label class="custom-control-label" for="customRadio1">Да</label>
+<div class="Wrapper">
+    <div class="Input">
+        <form th:action="${'/pet/add'}" method="post">
+            <input class="Input-text" type="text" name="name" placeholder="Введите имя питомца" width=""><br>
+            <input class="Input-text" type="text" name="breed" placeholder="Введите породу питомца"><br>
+            <input class="Input-text" type="number" name="age" placeholder="Введите возраст питомца"><br>
+            <input class="Input-text" type="text" name="sex" maxlength="1" placeholder="Введите пол питомца"><br>
+            <label>Болен ли питомец</label><br>
+            <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio1" name="sick" value="1" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio1">Да</label>
+            </div>
+            <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio2" name="sick" value="0" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio2">Нет</label>
+            </div>
+            <br>
+            <button class="Input-text" type="submit">Добавить питомца</button>
+        </form>
     </div>
-    <div class="custom-control custom-radio">
-        <input type="radio" id="customRadio2" name="sick" value="0" class="custom-control-input">
-        <label class="custom-control-label" for="customRadio2">Нет</label>
     </div>
-    <br>
-    <button type="submit">Добавить питомца</button>
-</form>
 </body>
 </html>
+

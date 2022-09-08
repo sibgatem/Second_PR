@@ -1,15 +1,16 @@
 package com.example.Second_PR.controllers;
 
+import com.example.Second_PR.models.Owner;
 import com.example.Second_PR.models.Pet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import com.example.Second_PR.repo.PetRepository;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class PetController {
@@ -62,6 +63,58 @@ public class PetController {
         List<Pet> result = petRepository.findByName(name);
         model.addAttribute("result", result);
         return "pet/pet-filter";
+    }
+    @RequestMapping(value = "/pet/{id}", method = RequestMethod.GET)
+    public String petDetails(@PathVariable("id") long id, Model model)
+    {
+        Optional<Pet> pet = petRepository.findById(id);
+        ArrayList<Pet> res = new ArrayList<>();
+        pet.ifPresent(res::add);
+        model.addAttribute("pet", res);
+        if(!petRepository.existsById(id))
+        {
+            return "redirect:/pet";
+        }
+        return "pet/pet-details";
+    }
+    @RequestMapping(value = "/pet/{id}/edit", method = RequestMethod.GET)
+
+    public String petEdit(@PathVariable("id")long id,
+                            Model model)
+    {
+        if(!petRepository.existsById(id)){
+            return "redirect:/owner";
+        }
+        Optional<Pet> pet = petRepository.findById(id);
+        ArrayList<Pet> res = new ArrayList<>();
+        pet.ifPresent(res::add);
+        model.addAttribute("pet",res);
+        return "pet/pet-edit";
+    }
+    @RequestMapping(value = "/pet/{id}/edit", method = RequestMethod.POST)
+
+    public String petDataUpdate(@PathVariable("id")long id,
+                                  @RequestParam String name,
+                                  @RequestParam String breed,
+                                  @RequestParam Integer age,
+                                  @RequestParam Character sex,
+                                  @RequestParam Boolean sick, Model model)
+    {
+        Pet pet = petRepository.findById(id).orElseThrow();
+        pet.setName(name);
+        pet.setBreed(breed);
+        pet.setAge(age);
+        pet.setSex(sex);
+        pet.setSick(sick.booleanValue());
+        petRepository.save(pet);
+        return "redirect:/pet";
+    }
+    @RequestMapping(value = "/pet/{id}/remove", method = RequestMethod.POST)
+
+    public String petDataDelete(@PathVariable("id") long id, Model model){
+        Pet pet = petRepository.findById(id).orElseThrow();
+        petRepository.delete(pet);
+        return "redirect:/pet";
     }
 
 }

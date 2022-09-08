@@ -2,18 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link href="/css/link.css" rel="stylesheet">
     <title>Питомцы</title>
 </head>
 <body>
-<h1>Все питомцы</h1>
-<a href="/pet/filter">Фильтрация</a>
-<a href="/pet/add">Добавить питомца</a>
-<div th:each="el : ${pets}">
-    <h3 th:text="${el.name}"></h3>
-    <p th:text="${el.breed}"></p>
-    <p th:text="${el.sex}"></p>
-    <p th:text="${el.age}"></p>
-    <p th:text="${el.sick}"></p>
+<div th:insert="blocks/header" />
+<div class="Wrapper">
+    <div class="Input">
+        <table>
+            <ul>
+                <a class="Input-text" href="/pet/filter">Фильтрация</a>
+                <a href="/pet/add">Добавить питомца</a>
+            </ul>
+
+            <div th:each="el : ${pets}">
+                <p class="Title" th:text="${el.getName()}" ></p>
+                <p class="Title" th:text="${el.getBreed()}"></p>
+                <p class="Title" th:text="${el.getAge()}"></p>
+                <a  th:href="'/pet/' + ${el.id}"> Подробнее </a>
+            </div>
+        </table>
+    </div>
 </div>
 </body>
 </html>

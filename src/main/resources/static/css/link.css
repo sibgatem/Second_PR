@@ -1,0 +1,88 @@
+body,html {
+    margin: 0;
+    font-family: sans-serif;
+
+}
+
+ul {
+    padding: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+li {
+    display: inline;
+}
+
+a {
+    outline: none;
+    text-decoration: none;
+    display: inline-block;
+    width: 19.5%;
+    margin-right: 0.625%;
+    text-align: center;
+    line-height: 3;
+    color: black;
+}
+
+li:last-child a {
+    margin-right: 0;
+}
+
+a:link, a:visited, a:focus {
+    background: #a0ebef;
+}
+
+a:hover {
+    background: rgba(32, 196, 239, 0.74);
+}
+
+a:active {
+    background: #2200ff;
+    color: white;
+}
+html {
+    font-size: 16px;
+}
+
+body {
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    color: #455A64;
+    background-color: #7E57C2;
+    font-family: var(--fontFamily);
+    font-size: var(--fontSizeMd);
+    line-height: var(--lineHeightMd);
+}
+
+.Title {
+    margin: 0 0 var(--gutterXx) 0;
+    padding: 0;
+    color: #fff;
+    font-size: var(--fontSizeXx);
+    font-weight: 400;
+    line-height: var(--lineHeightSm);
+    text-align: center;
+    text-shadow: -0.1rem 0.1rem 0.2rem var(--colorPrimary800);
+}
+a {
+    margin: 0 auto;
+    display: block;
+}
+button {
+    outline: none;
+    text-decoration: none;
+    display: inline-block;
+    width: 19.5%;
+    margin-right: 0.625%;
+    text-align: center;
+    line-height: 3;
+    color: black;
+    margin: 0 auto;
+    display: block;
+}

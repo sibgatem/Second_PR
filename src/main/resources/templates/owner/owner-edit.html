@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Редактирование данных владельца</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="/css/input.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="Input" th:each="el : ${owner}">
+        <form method="post">
+            <input class="Input-text" th:value="${el.getName()}" type="text" name="name" placeholder="Введите имя" ><br>
+            <input class="Input-text" th:value="${el.getPost()}" type="text" name="post" placeholder="Введите должность"><br>
+            <input class="Input-text" th:value="${el.getAge()}" type="number" name="age" placeholder="Введите возраст"><br>
+            <input class="Input-text" th:value="${el.getSex()}" type="text" name="sex" maxlength="1" placeholder="Введите пол"><br>
+            <input class="Input-text" th:value="${el.getSalary()}" type="text" name="salary"  placeholder="Введите заработную плату"><br>
+            <br>
+            <button class="Input-text" type="submit">Сохранить изменения</button>
+        </form>
+    </div>
+</body>
+</html>

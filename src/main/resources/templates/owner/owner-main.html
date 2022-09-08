@@ -1,18 +1,35 @@
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link href="/css/link.css" rel="stylesheet">
     <title>Все владельцы</title>
 </head>
 <body>
-<a href="/owner/filter">Фильтрация</a>
-<a href="/owner/add">Добавить владельца</a>
-<div th:each="el : ${owners}">
-    <h3 th:text="${el.name}"></h3>
-    <p th:text="${el.post}"></p>
-    <p th:text="${el.age}"></p>
-    <p th:text="${el.sex}"></p>
-    <p th:text="${el.salary}"></p>
+<div th:insert="blocks/header" />
+
+<div class="Wrapper">
+    <div class="Input">
+        <table>
+            <ul>
+                <a class="Input-text" href="/owner/filter">Фильтрация</a>
+                <a href="/owner/add">Добавить владельца</a>
+            </ul>
+
+            <div th:each="el : ${owners}">
+                <p class="Title" th:text="${el.getName()}" ></p>
+                <p class="Title" th:text="${el.getPost()}"></p>
+                <a  th:href="'/owner/' + ${el.id}"> Подробнее </a>
+            </div>
+        </table>
+    </div>
 </div>
 </body>
 </html>
+
+

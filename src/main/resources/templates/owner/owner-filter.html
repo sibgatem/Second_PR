@@ -2,19 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link href="/css/input.css" rel="stylesheet">
     <title>Фильтрация владельцев</title>
 </head>
 <body>
-<form  >
-    <input type="text" name="name">
-    <button th:formaction="${'/owner/filter/result'}" formmethod="post" type="submit">Найти</button>
-    <button th:formaction="${'/owner/filter/resultcontains'}" formmethod="post" type="submit">Найти</button>
-    <div th:each="el : ${result}">
-        <h3 th:text="${el.name}"></h3>
-        <p th:text="${el.post}"></p>
-        <p th:text="${el.age}"></p>
-        <p th:text="${el.sex}"></p>
-        <p th:text="${el.salary}"></p>
+
+<form  class="Input" >
+    <input class="Input" type="text" name="name">
+    <button  th:formaction="${'/owner/filter/result'}" formmethod="post" type="submit">Найти</button>
+    <button  th:formaction="${'/owner/filter/resultcontains'}" formmethod="post" type="submit">Найти</button>
+    <div  th:each="el : ${result}">
+        <h3 class="Title" th:text="${el.name}"></h3>
+        <p class="Title" th:text="${el.post}"></p>
+        <p class="Title" th:text="${el.age}"></p>
+        <p class="Title" th:text="${el.sex}"></p>
+        <p class="Title" th:text="${el.salary}"></p>
     </div>
 </form>
 </body>
