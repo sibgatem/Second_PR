@@ -8,12 +8,21 @@
 <body>
 <div class="Wrapper">
     <div class="Input">
-        <form th:action="${'/owner/add'}" method="post">
-            <input class="Input-text" type="text" name="name" placeholder="Введите имя" ><br>
-            <input class="Input-text" type="text" name="post" placeholder="Введите должность"><br>
-            <input class="Input-text" type="number" name="age" placeholder="Введите возраст"><br>
-            <input class="Input-text" type="text" name="sex" maxlength="1" placeholder="Введите пол"><br>
-            <input class="Input-text" type="text" name="salary"  placeholder="Введите заработную плату"><br>
+        <form th:action="${'/owner/add'}" method="post" th:object="${owner}">
+            <input th:field="*{name}" class="Input-text" type="text" name="name" placeholder="Введите имя" >
+            <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+            <br>
+            <input th:field="*{post}" class="Input-text" type="text" name="post" placeholder="Введите должность">
+            <div style="color: red" th:if="${#fields.hasErrors('post')}" th:errors="*{post}"></div>
+            <br>
+            <input th:field="*{age}" class="Input-text" type="number" name="age" placeholder="Введите возраст">
+            <div style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+            <br>
+            <input th:field="*{sex}" class="Input-text" type="text" name="sex" maxlength="1" placeholder="Введите пол">
+            <div style="color: red" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}"></div>
+            <br>
+            <input th:field="*{salary}" class="Input-text" type="text" name="salary"  placeholder="Введите заработную плату">
+            <div style="color: red" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></div>
             <br>
             <button class="Input-text" type="submit">Добавить</button>
         </form>

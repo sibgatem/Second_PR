@@ -4,16 +4,25 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @NotEmpty(message = "Поле не может быть пустым")
+    @Size(min = 2, max = 50, message = "Длина значения находится в пределах [2, 50]")
     String name, breed;
+    @NotNull
+    @Min(value = 0, message = "Возраст не может быть отрицательным")
     Integer age;
+    @NotNull
     Character sex;
+    @NotNull
     Boolean sick;
 
     public Pet() {

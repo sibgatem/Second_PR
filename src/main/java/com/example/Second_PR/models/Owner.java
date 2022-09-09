@@ -4,16 +4,23 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.*;
 
 @Entity
 public class Owner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @NotEmpty(message = "Поле не может быть пустым")
+    @Size(min = 2, max = 50, message = "Длина значения находится в пределах [2, 50]")
     String name, post;
-    Integer age;
+    @NotNull
     Character sex;
+    @NotNull
+    @Min(value = 0, message = "Поле")
+    Integer age;
+    @NotNull
+    @Positive
     Double salary;
 
     public Owner() {

@@ -5,9 +5,11 @@ import com.example.Second_PR.models.Pet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.example.Second_PR.repo.PetRepository;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,19 +28,17 @@ public class PetController {
         return "pet/pet-main";
     }
     @GetMapping("/pet/add")
-    public String petAdd(Model model)
+    public String petAdd(Pet pet, Model model)
     {
         return "pet/pet-add";
     }
     @PostMapping("/pet/add")
-    public String petDataAdd(
-            @RequestParam String name,
-            @RequestParam String breed,
-            @RequestParam Integer age,
-            @RequestParam Character sex,
-            @RequestParam Boolean sick, Model model)
+    public String petDataAdd( @ModelAttribute("pet") @Valid Pet pet, BindingResult bindingResult)
     {
-        Pet pet = new Pet(name, breed, age, sex, sick.booleanValue());
+        if (bindingResult.hasErrors())
+        {
+            return "pet/pet-add";
+        }
         petRepository.save(pet);
         return "redirect:/pet";
     }
@@ -80,32 +80,22 @@ public class PetController {
     @RequestMapping(value = "/pet/{id}/edit", method = RequestMethod.GET)
 
     public String petEdit(@PathVariable("id")long id,
-                            Model model)
+                          Model model)
     {
-        if(!petRepository.existsById(id)){
-            return "redirect:/owner";
-        }
-        Optional<Pet> pet = petRepository.findById(id);
-        ArrayList<Pet> res = new ArrayList<>();
-        pet.ifPresent(res::add);
-        model.addAttribute("pet",res);
+        Pet pet = petRepository.findById(id).orElseThrow();
+        model.addAttribute("pet", pet);
         return "pet/pet-edit";
     }
     @RequestMapping(value = "/pet/{id}/edit", method = RequestMethod.POST)
 
-    public String petDataUpdate(@PathVariable("id")long id,
-                                  @RequestParam String name,
-                                  @RequestParam String breed,
-                                  @RequestParam Integer age,
-                                  @RequestParam Character sex,
-                                  @RequestParam Boolean sick, Model model)
+    public String petDataUpdate(@ModelAttribute("pet") @Valid Pet pet, BindingResult bindingResult,
+                                @PathVariable("id")long id)
     {
-        Pet pet = petRepository.findById(id).orElseThrow();
-        pet.setName(name);
-        pet.setBreed(breed);
-        pet.setAge(age);
-        pet.setSex(sex);
-        pet.setSick(sick.booleanValue());
+        pet.setId(id);
+        if (bindingResult.hasErrors())
+        {
+            return "pet/pet-edit";
+        }
         petRepository.save(pet);
         return "redirect:/pet";
     }

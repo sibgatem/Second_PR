@@ -7,22 +7,31 @@
 </head>
 <body>
 <div class="Input" th:each="el : ${pet}">
-    <form method="post">
-        <input class="Input-text" th:value="${el.getName()}" type="text" name="name" placeholder="Введите имя" ><br>
-        <input class="Input-text" th:value="${el.getBreed()}" type="text" name="breed" placeholder="Введите породу"><br>
-        <input class="Input-text" th:value="${el.getAge()}" type="number" name="age" placeholder="Введите возраст"><br>
-        <input class="Input-text" th:value="${el.getSex()}" type="text" name="sex" maxlength="1" placeholder="Введите пол"><br>
+    <form th:action="@{/pet/{id}/edit(id=${pet.id})}" method="post" th:object="${pet}">
+        <input th:field="*{name}" class="Input-text" type="text" name="name" th:value="${pet.getName()}" placeholder="Введите имя питомца" width="">
+        <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        <br>
+        <input th:field="*{breed}" class="Input-text" type="text" name="breed" th:value="${pet.getBreed()}"  placeholder="Введите породу питомца">
+        <div style="color: red" th:if="${#fields.hasErrors('breed')}" th:errors="*{breed}"></div>
+        <br>
+        <input th:field="*{age}" class="Input-text" type="number" name="age" th:value="${pet.getAge()}" placeholder="Введите возраст питомца">
+        <div style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+        <br>
+        <input th:field="*{sex}" class="Input-text" type="text" name="sex" th:value="${pet.getSex()}" maxlength="1" placeholder="Введите пол питомца">
+        <div style="color: red" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}"></div>
+        <br>
         <label>Болен ли питомец</label><br>
-        <div class="custom-control custom-radio">
+        <div th:field="*{sick}" class="custom-control custom-radio" >
             <input type="radio" id="customRadio1" name="sick" value="1" class="custom-control-input">
             <label class="custom-control-label" for="customRadio1">Да</label>
         </div>
-        <div class="custom-control custom-radio">
+        <div th:field="*{sick}" class="custom-control custom-radio">
             <input type="radio" id="customRadio2" name="sick" value="0" class="custom-control-input">
             <label class="custom-control-label" for="customRadio2">Нет</label>
         </div>
+        <div style="color: red" th:if="${#fields.hasErrors('sick')}" th:errors="*{sick}"></div>
         <br>
-        <button class="Input-text" type="submit">Сохранить изменения</button>
+        <button class="Input-text" type="submit">Добавить питомца</button>
     </form>
 </div>
 </body>
