@@ -1,4 +1,10 @@
 <ul >
     <a href="/owner">Владельцы</a>
     <a href="/pet">Питомцы</a>
+    <div class="col-md-3 text-end">
+        <form th:action="@{/logout}" method="post">
+            <!--            <button type="button" class="btn btn-outline-primary me-2">Login</button>-->
+            <input type="submit" value="Выйти" class="btn btn-primary">
+        </form>
+    </div>
 </ul>

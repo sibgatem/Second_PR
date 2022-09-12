@@ -128,7 +128,7 @@ public class OwnerController {
         return "redirect:/owner";
     }
 
-//    @RequestMapping(value = "/owner/{id}/edit", method = RequestMethod.POST)
+    //    @RequestMapping(value = "/owner/{id}/edit", method = RequestMethod.POST)
 //
 //    public String ownerDataUpdate(@PathVariable("id")long id,
 //                                  @RequestParam String name,
