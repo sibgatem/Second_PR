@@ -11,8 +11,11 @@
         <input th:field="*{name}" class="Input-text" type="text" name="name" th:value="${pet.getName()}" placeholder="Введите имя питомца" width="">
         <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
         <br>
-        <input th:field="*{breed}" class="Input-text" type="text" name="breed" th:value="${pet.getBreed()}"  placeholder="Введите породу питомца">
-        <div style="color: red" th:if="${#fields.hasErrors('breed')}" th:errors="*{breed}"></div>
+        <select  name="breedname">
+            <div th:each="element : ${breed}">
+                <option th:text="${element.name}" th:value="${pet.setBreed().getName()}"></option>
+            </div>
+        </select>
         <br>
         <input th:field="*{age}" class="Input-text" type="number" name="age" th:value="${pet.getAge()}" placeholder="Введите возраст питомца">
         <div style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>

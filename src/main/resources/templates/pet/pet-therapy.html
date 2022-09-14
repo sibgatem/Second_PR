@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="${'/therapy/pet'}" method="post">
+  <select  name="pet">
+    <div th:each="element : ${pets}">
+      <option th:text="${element.name}"></option>
+    </div>
+  </select>
+  <select  name="therapy">
+    <div th:each="element : ${therapies}">
+      <option th:text="${element.name}"></option>
+    </div>
+  </select>
+  <br>
+  <button type="submit">Добавить назначение</button>
+</form>
+</body>
+</html>

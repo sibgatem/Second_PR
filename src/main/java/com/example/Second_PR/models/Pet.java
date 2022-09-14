@@ -1,13 +1,11 @@
 package com.example.Second_PR.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 public class Pet {
@@ -16,7 +14,10 @@ public class Pet {
     private Long id;
     @NotEmpty(message = "Поле не может быть пустым")
     @Size(min = 2, max = 50, message = "Длина значения находится в пределах [2, 50]")
-    String name, breed;
+    String name;
+
+    @ManyToOne(optional = true, cascade = CascadeType.ALL)
+    private Breed breed;
     @NotNull
     @Min(value = 0, message = "Возраст не может быть отрицательным")
     Integer age;
@@ -25,15 +26,29 @@ public class Pet {
     @NotNull
     Boolean sick;
 
+    @ManyToMany
+    @JoinTable(name="pet_therapy",
+            joinColumns=@JoinColumn(name="pet_id"),
+            inverseJoinColumns=@JoinColumn(name="therapy_id"))
+    private List<Therapy> therapy;
+
     public Pet() {
     }
 
-    public Pet(String name, String breed, Integer age, Character sex, Boolean sick) {
+    public Pet(String name, Breed breed, Integer age, Character sex, Boolean sick) {
         this.name = name;
         this.breed = breed;
         this.age = age;
         this.sex = sex;
         this.sick = sick;
+    }
+
+    public void setBreed(Breed breed) {
+        this.breed = breed;
+    }
+
+    public Breed getBreed() {
+        return breed;
     }
 
     public Long getId() {
@@ -50,14 +65,6 @@ public class Pet {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getBreed() {
-        return breed;
-    }
-
-    public void setBreed(String breed) {
-        this.breed = breed;
     }
 
     public Integer getAge() {
@@ -82,5 +89,13 @@ public class Pet {
 
     public void setSick(Boolean sick) {
         this.sick = sick;
+    }
+
+    public List<Therapy> getTherapy() {
+        return therapy;
+    }
+
+    public void setTherapy(List<Therapy> therapy) {
+        this.therapy = therapy;
     }
 }

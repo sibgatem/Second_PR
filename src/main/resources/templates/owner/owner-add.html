@@ -24,6 +24,12 @@
             <input th:field="*{salary}" class="Input-text" type="text" name="salary"  placeholder="Введите заработную плату">
             <div style="color: red" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></div>
             <br>
+            <select  name="departname">
+                <div th:each="element : ${depart}">
+                    <option th:text="${element.name}"></option>
+                </div>
+            </select>
+            <br>
             <button class="Input-text" type="submit">Добавить</button>
         </form>
     </div>

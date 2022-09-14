@@ -17,7 +17,6 @@
 
             <div th:each="el : ${pets}">
                 <p class="Title" th:text="${el.getName()}" ></p>
-                <p class="Title" th:text="${el.getBreed()}"></p>
                 <p class="Title" th:text="${el.getAge()}"></p>
                 <a  th:href="'/pet/' + ${el.id}"> Подробнее </a>
             </div>

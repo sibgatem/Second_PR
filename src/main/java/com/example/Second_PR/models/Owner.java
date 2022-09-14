@@ -1,9 +1,6 @@
 package com.example.Second_PR.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 
 @Entity
@@ -20,18 +17,32 @@ public class Owner {
     @Min(value = 0, message = "Поле")
     Integer age;
     @NotNull
-    @Positive
     Double salary;
+
+    @OneToOne(optional = true, cascade = CascadeType.ALL)
+    @JoinColumn(name="depart_id")
+    private Depart depart;
+
+
 
     public Owner() {
     }
 
-    public Owner(String name, String post, Integer age, Character sex, Double salary) {
+    public Owner(String name, String post, Character sex, Integer age, Double salary, Depart department) {
         this.name = name;
         this.post = post;
-        this.age = age;
         this.sex = sex;
+        this.age = age;
         this.salary = salary;
+        this.depart = department;
+    }
+
+    public Depart getDepart() {
+        return depart;
+    }
+
+    public void setDepart(Depart depart) {
+        this.depart = depart;
     }
 
     public Long getId() {
@@ -81,4 +92,6 @@ public class Owner {
     public void setSalary(Double salary) {
         this.salary = salary;
     }
+
+
 }

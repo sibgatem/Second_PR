@@ -1,7 +1,12 @@
 package com.example.Second_PR.controllers;
 
+import com.example.Second_PR.models.Breed;
 import com.example.Second_PR.models.Owner;
 import com.example.Second_PR.models.Pet;
+import com.example.Second_PR.models.Therapy;
+import com.example.Second_PR.repo.BreedRepository;
+import com.example.Second_PR.repo.PerRepo;
+import com.example.Second_PR.repo.TherapyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +25,15 @@ public class PetController {
     @Autowired
     private PetRepository petRepository;
 
+    @Autowired
+    private BreedRepository breedRepository;
+
+    @Autowired
+    private PerRepo perRepo;
+
+    @Autowired
+    private TherapyRepository therapyRepository;
+
     @GetMapping("/pet")
     public String petMain(Model model)
     {
@@ -30,16 +44,20 @@ public class PetController {
     @GetMapping("/pet/add")
     public String petAdd(Pet pet, Model model)
     {
+        Iterable<Breed> breeds = breedRepository.findAll();
+        model.addAttribute("breed",breeds);
         return "pet/pet-add";
     }
     @PostMapping("/pet/add")
-    public String petDataAdd( @ModelAttribute("pet") @Valid Pet pet, BindingResult bindingResult)
+    public String petDataAdd( @ModelAttribute("pet") @Valid Pet pet, @RequestParam String breedname, BindingResult bindingResult)
     {
+        Breed breedForAdd = breedRepository.findByName(breedname);
+        Pet petForAdd = new Pet(pet.getName(), breedForAdd, pet.getAge(), pet.getSex(), pet.getSick());
         if (bindingResult.hasErrors())
         {
             return "pet/pet-add";
         }
-        petRepository.save(pet);
+        petRepository.save(petForAdd);
         return "redirect:/pet";
     }
 
@@ -106,5 +124,27 @@ public class PetController {
         petRepository.delete(pet);
         return "redirect:/pet";
     }
+    @GetMapping("/therapy/pet")
+    private String therapyPet(Model model){
+        Iterable<Pet> pets = petRepository.findAll();
+        model.addAttribute("pets", pets);
+        Iterable<Therapy> therapies = therapyRepository.findAll();
+        model.addAttribute("therapies", therapies);
+        return "pet/pet-therapy";
+    }
+
+    @PostMapping("/therapy/pet")
+    public String therapyPetAdd(@RequestParam String pet, @RequestParam String therapy, Model model)
+    {
+        Pet pet1 = perRepo.findByName(pet);
+        Therapy therapy1 = therapyRepository.findByName(therapy);
+        pet1.getTherapy().add(therapy1);
+        therapy1.getPets().add(pet1);
+        petRepository.save(pet1);
+        therapyRepository.save(therapy1);
+        return "redirect:/pet";
+    }
+
+
 
 }

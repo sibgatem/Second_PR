@@ -9,7 +9,7 @@
 <div id="Input" th:each="el : ${pet}">
     <div class="input">
         <h3 class="Title" th:text="${el.getName()}"></h3>
-        <p class="Title" th:text="${el.getBreed()}"></p>
+        <p class="Title" th:text="${el.getBreed().getName()}"></p>
         <p class="Title" th:text="${el.getSex()}"></p>
         <p class="Title" th:text="${el.getAge()}"></p>
         <p class="Title" th:text="${el.getSick()}"></p>  </div>

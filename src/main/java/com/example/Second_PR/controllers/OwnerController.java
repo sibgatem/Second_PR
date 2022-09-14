@@ -1,7 +1,12 @@
 package com.example.Second_PR.controllers;
 
+import com.example.Second_PR.models.Breed;
+import com.example.Second_PR.models.Depart;
 import com.example.Second_PR.models.Owner;
+import com.example.Second_PR.models.Pet;
+import com.example.Second_PR.repo.DepartRepository;
 import com.example.Second_PR.repo.OwnerRepository;
+import com.example.Second_PR.repo.BreedRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +22,8 @@ import java.util.Optional;
 public class OwnerController {
     @Autowired
     private OwnerRepository ownerRepository;
+    @Autowired
+    private DepartRepository departRepository;
 
     @GetMapping("/owner")
     public String ownerMain(Model model)
@@ -28,16 +35,25 @@ public class OwnerController {
     @GetMapping("/owner/add")
     public String ownerAdd(Owner owner, Model model)
     {
+        Iterable<Depart> departs = departRepository.findAll();
+        model.addAttribute("depart",departs);
         return "owner/owner-add";
     }
     @PostMapping("/owner/add")
-    public String ownerDataAdd(@ModelAttribute("owner") @Valid Owner owner, BindingResult bindingResult)
+    public String ownerDataAdd(@ModelAttribute("owner") @Valid Owner owner, String departname, BindingResult bindingResult)
     {
+        Depart departForAdd = departRepository.findByName(departname);
+        Owner ownerForAdd = new Owner(owner.getName(),
+                owner.getPost(),
+                owner.getSex(),
+                owner.getAge(),
+                owner.getSalary(),
+                departForAdd);
         if (bindingResult.hasErrors())
         {
             return "owner/owner-add";
         }
-        ownerRepository.save(owner);
+        ownerRepository.save(ownerForAdd);
         return "redirect:/owner";
     }
 
